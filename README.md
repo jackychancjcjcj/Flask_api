@@ -6,3 +6,47 @@
 ## [api_v2.py](https://github.com/jackychancjcjcj/Flask_api/blob/master/api_v2.py)
     1. 注册用户，录入sqlite数据库
     2. 可申请token，免登录
+## Flask入门教程（李辉）
+#### 初始化
+```Python
+from flask import Flask
+app = Flask(__name__)
+```
+#### 启动
+```Python
+if __name__ == '__main__':
+    app.run(debug=TRUE) #debug开着方便修改代码
+```
+#### 添加路由
+```Python
+@app.route('/',methods=['GET']) #可以绑定多个路由
+```
+#### 传入参数
+```Python
+@app.route('/<int:id>',methods=['GET'])
+def get_id(id):
+        pass
+```
+#### 修改视图函数名
+```python
+from flask import url_for
+# ...
+@app.route('/')
+def hello():
+    return 'Hello'
+@app.route('/user/<name>')
+def user_page(name):
+    return 'User: %s' % name
+@app.route('/test')
+def test_url_for():
+# 下面是一些调用示例：
+    print(url_for('hello')) # 输出：/
+# 注意下面两个调用是如何生成包含 URL 变量的 URL 的
+    print(url_for('user_page', name='greyli')) # 输出：/user/greyli
+    print(url_for('user_page', name='peter')) # 输出：/user/peter
+    print(url_for('test_url_for')) # 输出：/test# 下面这个调用传入了多余的关键字参数，它们会被作为查询字符串附加到 URL后面。
+    print(url_for('test_url_for', num=2)) # 输出：/test?num=2
+    return 'Test page'
+```
+
+        
